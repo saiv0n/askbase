@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kestrel Coffee · Help</title>
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link rel="stylesheet" href="https://fonts.bunny.net/css?family=fraunces:500,600|instrument-sans:400,500,600&display=swap">
+<style>
+:root {
+  --paper: oklch(0.972 0.009 80); --card: oklch(0.99 0.005 80); --ink: oklch(0.23 0.012 70);
+  --ink-2: oklch(0.45 0.012 70); --rule: oklch(0.86 0.012 75); --moss: oklch(0.42 0.085 165);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --paper: oklch(0.2 0.008 70); --card: oklch(0.235 0.009 70); --ink: oklch(0.94 0.006 80);
+          --ink-2: oklch(0.75 0.008 80); --rule: oklch(0.34 0.01 75); --moss: oklch(0.72 0.1 165); color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.6 "Instrument Sans", sans-serif; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-color: var(--rule); }
+a:hover { text-decoration-color: currentColor; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+nav { display: flex; align-items: baseline; gap: 28px; padding: 22px 0; border-bottom: 1px solid var(--rule); }
+.logo { font: 600 21px/1 Fraunces, serif; letter-spacing: -0.01em; margin-right: auto; text-decoration: none; }
+nav a:not(.logo) { font-size: 15px; color: var(--ink-2); text-decoration: none; }
+nav a[aria-current] { color: var(--ink); }
+h1 { font: 500 clamp(38px, 6vw, 64px)/1.04 Fraunces, serif; letter-spacing: -0.025em; margin: 72px 0 18px; max-width: 13ch; }
+.lede { font-size: 19px; color: var(--ink-2); max-width: 52ch; margin: 0 0 56px; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); }
+.grid section { padding: 22px 24px 28px 0; }
+.grid section + section { padding-left: 24px; border-left: 1px solid var(--rule); }
+h2 { font: 600 22px/1.2 Fraunces, serif; letter-spacing: -0.01em; margin: 0 0 8px; }
+.grid p { margin: 0; color: var(--ink-2); font-size: 15px; }
+.num { font-variant-numeric: tabular-nums; }
+.demo { margin: 64px 0 96px; padding: 20px 24px; background: var(--card); border: 1px solid var(--rule); border-radius: 8px;
+        display: flex; gap: 16px; align-items: baseline; max-width: 680px; }
+.demo strong { font-weight: 600; white-space: nowrap; color: var(--moss); }
+.demo p { margin: 0; font-size: 15px; color: var(--ink-2); }
+footer { border-top: 1px solid var(--rule); padding: 22px 0 40px; font-size: 13px; color: var(--ink-2); }
+@media (max-width: 760px) {
+  nav a:not(.logo):not([aria-current]) { display: none; }
+  .grid { grid-template-columns: 1fr; }
+  .grid section + section { padding-left: 0; border-left: 0; border-top: 1px solid var(--rule); }
+  .demo { flex-direction: column; gap: 4px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="logo" href="#">Kestrel Coffee</a>
+    <a href="#">Shop</a><a href="#">Subscriptions</a><a href="#">Wholesale</a><a href="#" aria-current="page">Help</a>
+  </nav>
+
+  <h1>How can we help with your coffee?</h1>
+  <p class="lede">Orders, subscriptions, brewing and returns. Most answers are one question away, so ask the assistant in the corner.</p>
+
+  <div class="grid">
+    <section><h2>Shipping</h2><p>Roasted on Monday and Thursday, shipped within <span class="num">48</span> hours of roasting.</p></section>
+    <section><h2>Subscriptions</h2><p>Pause, skip or change your beans any time before the next roast day.</p></section>
+    <section><h2>Returns</h2><p>Not for you? Tell us within <span class="num">30</span> days and we'll make it right.</p></section>
+  </div>
+
+  <div class="demo">
+    <strong>Demo store</strong>
+    <p>Kestrel Coffee is made up. Its help pages live in <code>examples/kestrel-docs</code> and the assistant answers only from them, with a source for every claim.</p>
+  </div>
+
+  <footer>Kestrel Coffee is a fictional company used to demo askbase.</footer>
+</div>
+<script src="/widget.js" defer data-title="Kestrel help"
+        data-suggestions="When will my order ship?|How do I pause my subscription?|Can I return opened coffee?"></script>
+</body>
+</html>
