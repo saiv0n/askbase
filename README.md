@@ -64,7 +64,7 @@ askbase ask "When will my order ship?"
 askbase serve                     # demo page at http://127.0.0.1:8000
 ```
 
-The demo page is a made up coffee shop whose help center lives in [examples/kestrel-docs](examples/kestrel-docs).
+The demo page is the help centre of a made up coffee roaster. Its articles live in [examples/kestrel-docs](examples/kestrel-docs), and clicking any article title asks the assistant that question.
 
 ## Your own documents
 
@@ -112,6 +112,14 @@ All set as `data-` attributes on the script tag:
 | `data-open` | `true` to start open |
 
 The conversation survives page navigation within a tab and is cleared when the tab closes.
+
+The page can also drive the widget, which is handy for linking FAQ entries straight to an answer:
+
+```js
+askbase.open();
+askbase.ask("How do returns work?");
+askbase.close();
+```
 
 ## API
 

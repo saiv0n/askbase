@@ -1,75 +1,250 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kestrel Coffee · Help</title>
+<title>Help centre · Kestrel Coffee Roasters</title>
 <link rel="preconnect" href="https://fonts.bunny.net">
-<link rel="stylesheet" href="https://fonts.bunny.net/css?family=fraunces:500,600|instrument-sans:400,500,600&display=swap">
+<link rel="stylesheet" href="https://fonts.bunny.net/css?family=schibsted-grotesk:400,500,700&display=swap">
 <style>
 :root {
-  --paper: oklch(0.972 0.009 80); --card: oklch(0.99 0.005 80); --ink: oklch(0.23 0.012 70);
-  --ink-2: oklch(0.45 0.012 70); --rule: oklch(0.86 0.012 75); --moss: oklch(0.42 0.085 165);
-  color-scheme: light;
+  --oat: oklch(0.957 0.016 82); --card: oklch(0.985 0.008 85); --ink: oklch(0.22 0.018 55);
+  --ink-2: oklch(0.43 0.018 55); --ink-3: oklch(0.52 0.015 60); --rule: oklch(0.86 0.02 75);
+  --rust: oklch(0.49 0.13 40); --bar: oklch(0.22 0.018 55); --bar-ink: oklch(0.93 0.015 80);
+  --open: oklch(0.5 0.12 150); --on-rust: oklch(0.99 0.005 80); color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
-  :root { --paper: oklch(0.2 0.008 70); --card: oklch(0.235 0.009 70); --ink: oklch(0.94 0.006 80);
-          --ink-2: oklch(0.75 0.008 80); --rule: oklch(0.34 0.01 75); --moss: oklch(0.72 0.1 165); color-scheme: dark; }
+  :root { --oat: oklch(0.205 0.012 60); --card: oklch(0.24 0.013 60); --ink: oklch(0.93 0.012 80);
+          --ink-2: oklch(0.8 0.012 75); --ink-3: oklch(0.79 0.012 75); --rule: oklch(0.34 0.014 65);
+          --rust: oklch(0.8 0.1 52); --on-rust: oklch(0.2 0.02 50); --bar: oklch(0.15 0.01 60); --open: oklch(0.74 0.13 150); color-scheme: dark; }
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.6 "Instrument Sans", sans-serif; }
-a { color: inherit; text-underline-offset: 3px; text-decoration-color: var(--rule); }
-a:hover { text-decoration-color: currentColor; }
-.wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
-nav { display: flex; align-items: baseline; gap: 28px; padding: 22px 0; border-bottom: 1px solid var(--rule); }
-.logo { font: 600 21px/1 Fraunces, serif; letter-spacing: -0.01em; margin-right: auto; text-decoration: none; }
-nav a:not(.logo) { font-size: 15px; color: var(--ink-2); text-decoration: none; }
-nav a[aria-current] { color: var(--ink); }
-h1 { font: 500 clamp(38px, 6vw, 64px)/1.04 Fraunces, serif; letter-spacing: -0.025em; margin: 72px 0 18px; max-width: 13ch; }
-.lede { font-size: 19px; color: var(--ink-2); max-width: 52ch; margin: 0 0 56px; }
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); }
-.grid section { padding: 22px 24px 28px 0; }
-.grid section + section { padding-left: 24px; border-left: 1px solid var(--rule); }
-h2 { font: 600 22px/1.2 Fraunces, serif; letter-spacing: -0.01em; margin: 0 0 8px; }
-.grid p { margin: 0; color: var(--ink-2); font-size: 15px; }
-.num { font-variant-numeric: tabular-nums; }
-.demo { margin: 64px 0 96px; padding: 20px 24px; background: var(--card); border: 1px solid var(--rule); border-radius: 8px;
-        display: flex; gap: 16px; align-items: baseline; max-width: 680px; }
-.demo strong { font-weight: 600; white-space: nowrap; color: var(--moss); }
-.demo p { margin: 0; font-size: 15px; color: var(--ink-2); }
-footer { border-top: 1px solid var(--rule); padding: 22px 0 40px; font-size: 13px; color: var(--ink-2); }
-@media (max-width: 760px) {
-  nav a:not(.logo):not([aria-current]) { display: none; }
-  .grid { grid-template-columns: 1fr; }
-  .grid section + section { padding-left: 0; border-left: 0; border-top: 1px solid var(--rule); }
-  .demo { flex-direction: column; gap: 4px; }
+body { margin: 0; background: var(--oat); color: var(--ink); font: 16px/1.55 "Schibsted Grotesk", sans-serif; }
+a { color: inherit; }
+button { font: inherit; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+.roast { background: var(--bar); color: var(--bar-ink); font-size: 13.5px; text-align: center; padding: 8px 16px; }
+.roast b { font-weight: 500; }
+
+header { display: flex; align-items: center; gap: 32px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-right: auto; }
+.brand svg { width: 34px; height: 34px; color: var(--rust); }
+.brand span { font-weight: 700; font-size: 19px; letter-spacing: -0.02em; line-height: 1; }
+.brand small { display: block; font-weight: 400; font-size: 11.5px; letter-spacing: 0; color: var(--ink-3); margin-top: 3px; }
+header nav { display: flex; gap: 22px; font-size: 15px; }
+header nav a { text-decoration: none; color: var(--ink-2); }
+header nav a:hover { color: var(--ink); }
+header nav a[aria-current] { color: var(--ink); font-weight: 500; }
+.basket { font-size: 15px; text-decoration: none; font-variant-numeric: tabular-nums; }
+
+.crumbs { font-size: 13.5px; color: var(--ink-3); margin: 28px 0 6px; }
+.crumbs a { text-decoration: none; }
+.crumbs a:hover { text-decoration: underline; }
+h1 { font-size: 34px; line-height: 1.15; letter-spacing: -0.025em; font-weight: 700; margin: 0 0 18px; }
+.search { display: block; position: relative; max-width: 560px; margin-bottom: 36px; }
+.search input {
+  width: 100%; padding: 12px 14px 12px 40px; font: inherit; color: var(--ink);
+  background: var(--card); border: 1px solid var(--rule); border-radius: 6px;
+}
+.search input:focus { outline: 2px solid var(--rust); outline-offset: 1px; border-color: transparent; }
+.search svg { position: absolute; left: 13px; top: 50%; width: 17px; height: 17px; transform: translateY(-50%); color: var(--ink-3); }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 56px; align-items: start; padding-bottom: 72px; }
+.topics { columns: 2; column-gap: 48px; }
+.topic { break-inside: avoid; margin: 0 0 36px; }
+.topic h2 { font-size: 13px; font-weight: 500; color: var(--ink-3); margin: 0 0 8px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.topic ul { list-style: none; margin: 0; padding: 0; }
+.topic li { border-bottom: 1px solid var(--rule); }
+.topic button {
+  all: unset; box-sizing: border-box; width: 100%; cursor: pointer; display: flex; justify-content: space-between; gap: 12px;
+  padding: 9px 0; font-size: 15.5px; line-height: 1.4;
+}
+.topic button:hover span:first-child { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--rust); }
+.topic button:focus-visible { outline: 2px solid var(--rust); outline-offset: 2px; border-radius: 2px; }
+.topic button .arrow { color: var(--ink-3); flex: none; }
+.empty { display: none; padding: 20px; background: var(--card); border: 1px solid var(--rule); border-radius: 6px; max-width: 520px; }
+.empty p { margin: 0 0 10px; }
+.empty button { all: unset; cursor: pointer; color: var(--rust); font-weight: 500; }
+
+aside { position: sticky; top: 24px; display: grid; gap: 16px; }
+.box { background: var(--card); border: 1px solid var(--rule); border-radius: 6px; padding: 18px 20px; }
+.box h3 { font-size: 16px; margin: 0 0 6px; letter-spacing: -0.01em; }
+.box p { margin: 0 0 6px; font-size: 14.5px; color: var(--ink-2); }
+.box .status { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 500; margin-bottom: 10px; }
+.box .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ink-3); }
+.box .status.on { color: var(--open); }
+.box .status.on::before { background: var(--open); }
+.ask {
+  all: unset; box-sizing: border-box; cursor: pointer; display: block; width: 100%; text-align: center; margin-top: 12px;
+  padding: 10px 14px; border-radius: 6px; background: var(--rust); color: var(--on-rust); font-weight: 500; font-size: 15px;
+}
+.ask:hover { background: oklch(from var(--rust) calc(l - 0.04) c h); }
+.ask:focus-visible { outline: 2px solid var(--rust); outline-offset: 2px; }
+dl { margin: 0; font-size: 14.5px; display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; }
+dt { color: var(--ink-3); } dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+footer { border-top: 1px solid var(--rule); padding: 20px 0 40px; font-size: 13px; color: var(--ink-3); }
+footer code { font-size: 12.5px; }
+
+@media (max-width: 900px) {
+  header nav { display: none; }
+  .layout { grid-template-columns: 1fr; gap: 24px; }
+  aside { position: static; }
+  .topics { columns: 1; }
+  h1 { font-size: 28px; }
 }
 </style>
 </head>
 <body>
+<div class="roast" id="roast">Fresh roast every Monday and Thursday</div>
+
 <div class="wrap">
-  <nav>
-    <a class="logo" href="#">Kestrel Coffee</a>
-    <a href="#">Shop</a><a href="#">Subscriptions</a><a href="#">Wholesale</a><a href="#" aria-current="page">Help</a>
-  </nav>
+  <header>
+    <a class="brand" href="#" aria-label="Kestrel Coffee Roasters home">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="37" height="37" rx="7" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <path d="M9 23.5c4.5-1.2 8-4.6 10.4-9.5 1.4 3.6 4.4 6 8.6 6.6l3-3.1v4.2c-1.6 3.3-4.8 5.3-9 5.3H9z" fill="currentColor"/>
+        <circle cx="26.2" cy="18.6" r="1.1" fill="var(--card)"/>
+      </svg>
+      <span>Kestrel<small>Coffee Roasters · Bristol</small></span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#">Coffee</a><a href="#">Subscriptions</a><a href="#">Brewing gear</a><a href="#">Wholesale</a>
+      <a href="#" aria-current="page">Help</a>
+    </nav>
+    <a class="basket" href="#">Basket (0)</a>
+  </header>
 
-  <h1>How can we help with your coffee?</h1>
-  <p class="lede">Orders, subscriptions, brewing and returns. Most answers are one question away, so ask the assistant in the corner.</p>
+  <p class="crumbs"><a href="#">Home</a> / Help centre</p>
+  <h1>Help centre</h1>
+  <label class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+    <input id="q" type="search" placeholder="Search help articles" autocomplete="off" aria-label="Search help articles">
+  </label>
 
-  <div class="grid">
-    <section><h2>Shipping</h2><p>Roasted on Monday and Thursday, shipped within <span class="num">48</span> hours of roasting.</p></section>
-    <section><h2>Subscriptions</h2><p>Pause, skip or change your beans any time before the next roast day.</p></section>
-    <section><h2>Returns</h2><p>Not for you? Tell us within <span class="num">30</span> days and we'll make it right.</p></section>
+  <div class="layout">
+    <main>
+      <div class="topics" id="topics">
+        <section class="topic"><h2>Orders and delivery</h2><ul>
+          <li><button>When will my order ship?</button></li>
+          <li><button>How much is delivery to the EU?</button></li>
+          <li><button>My tracking hasn't moved for days</button></li>
+          <li><button>My parcel arrived damaged</button></li>
+          <li><button>Can I change the address on my order?</button></li>
+          <li><button>Can I collect from the roastery?</button></li>
+        </ul></section>
+        <section class="topic"><h2>Subscriptions</h2><ul>
+          <li><button>How do I skip or pause a delivery?</button></li>
+          <li><button>When am I charged?</button></li>
+          <li><button>What is Roaster's choice?</button></li>
+          <li><button>I forgot to skip, can I get a refund?</button></li>
+        </ul></section>
+        <section class="topic"><h2>Returns and refunds</h2><ul>
+          <li><button>Can I return coffee I've opened?</button></li>
+          <li><button>How long do refunds take?</button></li>
+          <li><button>Returning a grinder or kettle</button></li>
+        </ul></section>
+        <section class="topic"><h2>Coffee and brewing</h2><ul>
+          <li><button>Which grind should I choose?</button></li>
+          <li><button>Why does my pour over taste sour?</button></li>
+          <li><button>How long does coffee stay fresh?</button></li>
+          <li><button>Is the decaf really caffeine free?</button></li>
+        </ul></section>
+        <section class="topic"><h2>Account and payment</h2><ul>
+          <li><button>Which payment methods do you take?</button></li>
+          <li><button>My password reset email didn't arrive</button></li>
+          <li><button>Can I use two discount codes?</button></li>
+          <li><button>How do I delete my account?</button></li>
+        </ul></section>
+        <section class="topic"><h2>Cafes and offices</h2><ul>
+          <li><button>Do you supply cafes?</button></li>
+          <li><button>What are your wholesale prices?</button></li>
+        </ul></section>
+      </div>
+      <div class="empty" id="empty">
+        <p>No articles match "<span id="term"></span>".</p>
+        <button type="button" id="ask-term">Ask the assistant instead</button>
+      </div>
+    </main>
+
+    <aside>
+      <div class="box">
+        <h3>Still stuck?</h3>
+        <p>Our assistant reads these help articles and answers in seconds, any time of day.</p>
+        <button class="ask" type="button" id="ask-open">Ask a question</button>
+      </div>
+      <div class="box">
+        <span class="status" id="status">Phone line closed</span>
+        <dl>
+          <dt>Email</dt><dd>hello@kestrel.example</dd>
+          <dt>Phone</dt><dd>0117 496 0123</dd>
+          <dt>Hours</dt><dd>Mon to Fri, 9:00 to 17:00</dd>
+        </dl>
+        <p style="margin-top:10px">We reply to every email within one working day.</p>
+      </div>
+      <div class="box">
+        <h3>Roastery shop</h3>
+        <p>14 Mill Lane, Bristol. Open Saturdays 9:00 to 14:00 for collection and tastings.</p>
+      </div>
+    </aside>
   </div>
-
-  <div class="demo">
-    <strong>Demo store</strong>
-    <p>Kestrel Coffee is made up. Its help pages live in <code>examples/kestrel-docs</code> and the assistant answers only from them, with a source for every claim.</p>
-  </div>
-
-  <footer>Kestrel Coffee is a fictional company used to demo askbase.</footer>
 </div>
-<script src="/widget.js" defer data-title="Kestrel help"
+
+<footer>
+  <div class="wrap">Kestrel Coffee is a made-up shop for demoing askbase. Its help articles live in <code>examples/kestrel-docs</code>, and every article link above asks the assistant that question.</div>
+</footer>
+
+<script>
+(() => {
+  const london = (d) => new Date(d.toLocaleString("en-US", { timeZone: "Europe/London" }));
+  const now = london(new Date());
+
+  // next roast: Monday or Thursday, orders close at 10:00 on the day
+  const next = new Date(now);
+  for (let i = 0; i < 8; i++) {
+    const day = next.getDay();
+    if ((day === 1 || day === 4) && !(i === 0 && now.getHours() >= 10)) break;
+    next.setDate(next.getDate() + 1);
+  }
+  const when = next.toDateString() === now.toDateString() ? "today"
+    : next.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+  document.getElementById("roast").innerHTML = `Next roast <b>${when}</b> · order by 10:00 to make it`;
+
+  const open = now.getDay() >= 1 && now.getDay() <= 5 && now.getHours() >= 9 && now.getHours() < 17;
+  const status = document.getElementById("status");
+  status.textContent = open ? "Phone line open now" : "Phone line closed, email us any time";
+  status.classList.toggle("on", open);
+
+  const ask = (q) => window.askbase ? window.askbase.ask(q) : null;
+  document.querySelectorAll(".topic button").forEach((b) => {
+    b.innerHTML = `<span>${b.textContent}</span><span class="arrow" aria-hidden="true">›</span>`;
+    b.addEventListener("click", () => ask(b.textContent.replace("›", "").trim()));
+  });
+  document.getElementById("ask-open").onclick = () => window.askbase?.open();
+
+  const q = document.getElementById("q"), topics = document.getElementById("topics");
+  const empty = document.getElementById("empty"), term = document.getElementById("term");
+  q.addEventListener("input", () => {
+    const v = q.value.trim().toLowerCase();
+    let shown = 0;
+    topics.querySelectorAll(".topic").forEach((t) => {
+      let n = 0;
+      t.querySelectorAll("li").forEach((li) => {
+        const hit = !v || li.textContent.toLowerCase().includes(v);
+        li.hidden = !hit; n += hit;
+      });
+      t.hidden = !n; shown += n;
+    });
+    term.textContent = q.value.trim();
+    empty.style.display = shown ? "none" : "block";
+  });
+  q.addEventListener("keydown", (e) => { if (e.key === "Enter" && empty.style.display === "block") ask(q.value); });
+  document.getElementById("ask-term").onclick = () => ask(q.value);
+})();
+</script>
+<script src="/widget.js" defer data-title="Kestrel help" data-color="oklch(0.49 0.13 40)" data-color-dark="oklch(0.55 0.13 42)"
+        data-greeting="Hi! I can help with orders, subscriptions, returns and brewing. Every answer links to the help article it came from."
         data-suggestions="When will my order ship?|How do I pause my subscription?|Can I return opened coffee?"></script>
 </body>
 </html>

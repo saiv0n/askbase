@@ -57,6 +57,7 @@
     --bg: oklch(0.215 0.006 85); --soft: oklch(0.255 0.007 85); --line: oklch(0.33 0.007 85);
     --text: oklch(0.945 0.004 85); --text-2: oklch(0.85 0.006 85); --text-3: oklch(0.77 0.006 85);
     --err: oklch(0.72 0.15 25); --err-bg: oklch(0.29 0.05 25);
+    ${cfg.color ? (cfg.colorDark ? `--accent: ${cfg.colorDark};` : "") : "--accent: oklch(0.5 0.095 165);"}
   }
 }
 .launch {
@@ -339,4 +340,11 @@ textarea::placeholder { color: var(--text-3); }
 
   (document.body || document.documentElement).appendChild(host);
   if (cfg.open === "true") setOpen(true);
+
+  // lets the host page open the assistant or link an FAQ straight to a question
+  window.askbase = {
+    open: () => setOpen(true),
+    close: () => setOpen(false),
+    ask: (q) => { setOpen(true); ask(String(q)); },
+  };
 })();
