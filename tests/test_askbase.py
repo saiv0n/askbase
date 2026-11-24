@@ -125,11 +125,15 @@ def test_answer_streams_with_sources_and_logs(index):
     assert index.questions() and index.questions()[0][2] == 1
 
 
-@pytest.mark.parametrize("reply", [NOT_FOUND, f"  {NOT_FOUND}.", f"{NOT_FOUND}\n\nSorry."])
-def test_not_found_marker_never_reaches_the_user(index, reply):
+@pytest.mark.parametrize("reply,shown", [
+    (NOT_FOUND, "Please contact support."),
+    (f"  {NOT_FOUND}.", "Please contact support."),
+    (f"{NOT_FOUND}\n\nLütfen destekle iletişime geçin.", "Lütfen destekle iletişime geçin."),
+])
+def test_not_found_marker_never_reaches_the_user(index, reply, shown):
     s = Settings(company="Kestrel", fallback="Please contact support.")
     events, text = run([{"role": "user", "content": "Do you sell tea from Japan?"}], index, FakeLLM(reply), s)
-    assert text == "Please contact support."
+    assert text == shown
     assert NOT_FOUND not in text
     assert events[-1].data == {"answered": False}
     assert index.questions(unanswered_only=True)[0][1] == "Do you sell tea from Japan?"
@@ -187,7 +191,50 @@ def test_openai_compatible_stream():
 def test_openai_compatible_errors(status, needle):
     respx.post("https://llm.test/v1/chat/completions").respond(status, text="nope")
     with pytest.raises(LLMError, match=needle):
+        list(OpenAICompatible("https://llm.test/v1", "m", retries=1).stream("s", []))
+
+
+@respx.mock
+def test_cut_off_stream_is_an_error():
+    cut = 'data: {"choices": [{"delta": {"content": "You can ret"}}]}\n\n'
+    respx.post("https://llm.test/v1/chat/completions").respond(200, text=cut)
+    with pytest.raises(LLMError, match="cut off"):
         list(OpenAICompatible("https://llm.test/v1", "m").stream("s", []))
+
+
+@respx.mock
+def test_error_inside_stream_is_raised():
+    respx.post("https://llm.test/v1/chat/completions").respond(200, text='data: {"error": {"code": 503}}\n\n')
+    with pytest.raises(LLMError, match="provider error"):
+        list(OpenAICompatible("https://llm.test/v1", "m").stream("s", []))
+
+
+@respx.mock
+def test_finish_reason_without_done_is_complete():
+    ok = 'data: {"choices": [{"delta": {"content": "Done."}, "finish_reason": "stop"}]}\n\n'
+    respx.post("https://llm.test/v1/chat/completions").respond(200, text=ok)
+    assert "".join(OpenAICompatible("https://llm.test/v1", "m").stream("s", [])) == "Done."
+
+
+@respx.mock
+def test_openai_compatible_retries_busy_provider(monkeypatch):
+    monkeypatch.setattr("askbase.llm.time.sleep", lambda s: None)
+    ok = 'data: {"choices": [{"delta": {"content": "hi"}}]}\n\ndata: [DONE]\n\n'
+    route = respx.post("https://llm.test/v1/chat/completions").mock(side_effect=[
+        httpx.Response(503, text="busy"), httpx.Response(429, headers={"retry-after": "Wed, 21 Oct 2026 07:28:00 GMT"}),
+        httpx.Response(200, text=ok)])
+    assert "".join(OpenAICompatible("https://llm.test/v1", "m").stream("s", [])) == "hi"
+    assert route.call_count == 3
+    body = json.loads(route.calls[0].request.content)
+    assert body["temperature"] == 0.2
+
+
+@respx.mock
+def test_openai_compatible_gives_up_after_retries(monkeypatch):
+    monkeypatch.setattr("askbase.llm.time.sleep", lambda s: None)
+    respx.post("https://llm.test/v1/chat/completions").respond(503, text="busy")
+    with pytest.raises(LLMError, match="busy or down"):
+        list(OpenAICompatible("https://llm.test/v1", "m", retries=2).stream("s", []))
 
 
 def test_claude_provider_uses_sdk_stream():

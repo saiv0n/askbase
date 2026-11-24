@@ -4,12 +4,14 @@ import argparse
 import csv
 import logging
 import os
+import re
 import sys
 from pathlib import Path
 
 from . import __version__
 from .answer import Settings, answer
 from .index import Index
+from .llm import LLMError
 from .ingest import chunk, load_path, load_urls
 
 
@@ -52,14 +54,20 @@ def cmd_ask(args) -> int:
     from .llm import from_env
 
     s = Settings.from_env()
-    sources = []
-    for ev in answer([{"role": "user", "content": args.question}], Index(args.db), from_env(), s):
-        if ev.type == "sources":
-            sources = ev.data
-        elif ev.type == "delta":
-            print(ev.data, end="", flush=True)
+    sources, text = [], ""
+    try:
+        for ev in answer([{"role": "user", "content": args.question}], Index(args.db), from_env(), s):
+            if ev.type == "sources":
+                sources = ev.data
+            elif ev.type == "delta":
+                text += ev.data
+                print(ev.data, end="", flush=True)
+    except LLMError as e:
+        print(f"\nerror: {e}", file=sys.stderr)
+        return 1
     print()
-    for src in sources:
+    cited = {int(n) for n in re.findall(r"\[(\d{1,2})\]", text)}
+    for src in (s for s in sources if s["n"] in cited):
         print(f"  [{src['n']}] {src['title']} > {src['heading']}  {src['source']}")
     return 0
 

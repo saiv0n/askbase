@@ -6,6 +6,10 @@
 
 A support chatbot that answers from your own documents and shows where every answer came from. Point it at a folder of help pages, PDFs or your website, then add one script tag to your site.
 
+<p align="center"><img src="docs/demo.png" alt="The askbase widget on the demo help centre, answering a question about returns with a cited source" width="800"></p>
+
+<p align="center"><sub>A real answer from <code>gemini-3.5-flash-lite</code> on the demo help centre, citing the returns page it came from.</sub></p>
+
 ```html
 <script src="https://help.example.com/widget.js" defer
         data-title="Help" data-color="#1f5f4a"
